@@ -1,31 +1,27 @@
 package com.thanhson;
 
 public class Word {
-  private String word_target;
-  private String word_explain;
+  private String wordTarget;
+  private String wordExplain;
 
-  Word(){}
-  Word(String word_target){
-    this.word_target = word_target;
-  }
-  Word(String word_target, String word_explain){
-    this.word_explain = word_explain;
-    this.word_target = word_target;
+  Word(String wordTarget, String wordExplain){
+    this.wordExplain = wordExplain;
+    this.wordTarget = wordTarget;
   }
 
-  public String getWord_target() {
-    return word_target;
+  public String getWordTarget() {
+    return wordTarget;
   }
 
-  public String getWord_explain() {
-    return word_explain;
+  public void setWordTarget(String wordTarget) {
+    this.wordTarget = wordTarget;
   }
 
-  public void setWord_target(String word_target) {
-    this.word_target = word_target;
+  public String getWordExplain() {
+    return wordExplain;
   }
 
-  public void setWord_explain(String word_explain) {
-    this.word_explain = word_explain;
+  public void setWordExplain(String wordExplain) {
+    this.wordExplain = wordExplain;
   }
 }
