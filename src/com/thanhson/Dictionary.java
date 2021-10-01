@@ -1,19 +1,18 @@
 package com.thanhson;
 
+import java.util.ArrayList;
+
 public class Dictionary {
   private int numOfWords = 0;
-  private Word[] wordArray;
+  private ArrayList<Word> wordArrayList;
 
-  public Dictionary() {}
-
-  public Dictionary(int size) {
-    wordArray = new Word[size];
-    this.numOfWords = size;
+  public Dictionary() {
+    wordArrayList = new ArrayList<>();
   }
 
-  public Dictionary(Word[] newWordArray) {
-    this.numOfWords = newWordArray.length;
-    this.wordArray = newWordArray;
+  public Dictionary(ArrayList newWordArrayList) {
+    this.numOfWords = newWordArrayList.size();
+    this.wordArrayList = newWordArrayList;
   }
 
   public int getNumOfWords() {
@@ -24,11 +23,11 @@ public class Dictionary {
     this.numOfWords = numOfWords;
   }
 
-  public Word[] getWordArray() {
-    return wordArray;
+  public ArrayList<Word> getWordArrayList() {
+    return wordArrayList;
   }
 
-  public void setWordArray(Word[] wordArray) {
-    this.wordArray = wordArray;
+  public void setWordArrayList(ArrayList<Word> wordArrayList) {
+    this.wordArrayList = wordArrayList;
   }
 }

@@ -7,8 +7,8 @@ public class DictionaryCommandLine {
       System.out.format(
           "%-5d%-15s%-25s\n",
           i + 1,
-          dictionary.getWordArray()[i].getWordTarget(),
-          dictionary.getWordArray()[i].getWordExplain());
+          dictionary.getWordArrayList().get(i).getWordTarget(),
+          dictionary.getWordArrayList().get(i).getWordExplain());
     }
   }
 
@@ -22,6 +22,7 @@ public class DictionaryCommandLine {
     showAllWords(manager.getDictionary());
     manager.dictionaryLookup();
   }
+
   public static void dictionaryMoreAdvanced(DictionaryManagement manager) {
     manager.insertFromFile();
     showAllWords(manager.getDictionary());

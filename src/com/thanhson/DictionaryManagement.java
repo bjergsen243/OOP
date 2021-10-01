@@ -13,7 +13,7 @@ public class DictionaryManagement {
   public void insertFromCommandLine() {
     int newNumOfWords = 0;
     int oldNumOfWords = dictionary.getNumOfWords();
-    Word[] currWordArray = dictionary.getWordArray();
+    ArrayList<Word> currWordArrayList = dictionary.getWordArrayList();
     boolean checkInput = true;
     do {
       try {
@@ -30,12 +30,6 @@ public class DictionaryManagement {
       }
     } while (checkInput);
     sc.nextLine();
-    // System.out.println("N = " + newNumOfWords);
-    Word[] newWordArray = new Word[oldNumOfWords + newNumOfWords];
-    // copy lai array cu
-    for (int i = 0; i < oldNumOfWords; i++) {
-      newWordArray[i] = currWordArray[i];
-    }
     String target;
     String meaning;
     for (int i = 0; i < newNumOfWords; i++) {
@@ -44,17 +38,16 @@ public class DictionaryManagement {
       System.out.print("Enter meaning in Vietnamese: ");
       meaning = sc.nextLine();
       Word newWord = new Word(target, meaning);
-      newWordArray[oldNumOfWords + i] = newWord;
+      currWordArrayList.add(newWord);
     }
-    dictionary.setWordArray(newWordArray);
+    dictionary.setWordArrayList(currWordArrayList);
     dictionary.setNumOfWords(newNumOfWords + oldNumOfWords);
   }
 
+
   public void insertFromFile() {
     // get data from .txt file
-    int newNumOfWords = 0;
-    int oldNumOfWords = dictionary.getNumOfWords();
-    Word[] currWordArray = dictionary.getWordArray();
+    ArrayList<Word> currWordArrayList = dictionary.getWordArrayList();
     // List lưu các dòng chứa key - value cách nhau bởi dấu tab
     List<String> wordDataList = new ArrayList<>();
     try {
@@ -71,22 +64,16 @@ public class DictionaryManagement {
       e.printStackTrace();
     }
     // thêm phần tử mới trong file vào trong dictionary
-    newNumOfWords = wordDataList.size();
-    System.out.println("wordDataList = " + newNumOfWords);
-    Word[] newWordArray = new Word[newNumOfWords + oldNumOfWords];
-    // copy lại dictionary cũ đang có
-    for (int i = 0; i < oldNumOfWords; i++) {
-      newWordArray[i] = currWordArray[i];
-    }
+    //System.out.println("wordDataList = " + wordDataList.size());
     for (int i = 0; i < wordDataList.size(); i++) {
       String[] word;
       word = wordDataList.get(i).split("\t");
       Word newWord = new Word(word[0], word[1]);
-      newWordArray[oldNumOfWords + i] = newWord;
+      currWordArrayList.add(newWord);
     }
     // set lại dictionary sau khi được thêm
-    dictionary.setWordArray(newWordArray);
-    dictionary.setNumOfWords(newNumOfWords + oldNumOfWords);
+    dictionary.setWordArrayList(currWordArrayList);
+    dictionary.setNumOfWords(wordDataList.size() + dictionary.getNumOfWords());
   }
 
   public void dictionaryLookup() {
@@ -94,38 +81,79 @@ public class DictionaryManagement {
     // show all words if they match the input word you want to find
     System.out.print("Enter the word you want to search: ");
     String wordSearch = sc.nextLine();
-    Word[] currWordArray = dictionary.getWordArray();
+    ArrayList<Word> currWordArrayList = dictionary.getWordArrayList();
     System.out.format("%-5s%-10s%-20s\n", "No", "English", "Vietnamese");
-    for (int i = 0; i < currWordArray.length; i++) {
-      if (currWordArray[i].getWordExplain().equals(wordSearch)
-          || currWordArray[i].getWordTarget().equals(wordSearch)) {
+    boolean checkAppear = false;
+    for (int i = 0; i < currWordArrayList.size(); i++) {
+      if (currWordArrayList.get(i).getWordExplain().equals(wordSearch)
+          || currWordArrayList.get(i).getWordTarget().equals(wordSearch)) {
+        checkAppear = true;
+        break;
+      }
+    }
+    if (!checkAppear) {
+      System.out.println("Can't find the word you want to search!");
+      return;
+    }
+    System.out.format("%-5s%-10s%-20s\n", "No", "English", "Vietnamese");
+    for (int i = 0; i < currWordArrayList.size(); i++) {
+      if (currWordArrayList.get(i).getWordExplain().equals(wordSearch)
+          || currWordArrayList.get(i).getWordTarget().equals(wordSearch)) {
         System.out.format(
             "%-5d%-10s%-20s\n",
             i + 1,
-            dictionary.getWordArray()[i].getWordTarget(),
-            dictionary.getWordArray()[i].getWordExplain());
+            dictionary.getWordArrayList().get(i).getWordTarget(),
+            dictionary.getWordArrayList().get(i).getWordExplain());
       }
     }
   }
+
   public void dictionarySeacher() {
     // function to find all words
     // show all words if they match a part of the input word you want to find
     System.out.print("Enter the word you want to search: ");
     String wordSearch = sc.nextLine();
-    Word[] currWordArray = dictionary.getWordArray();
+    ArrayList<Word> currWordArrayList = dictionary.getWordArrayList();
+    boolean checkAppear = false;
+    for (int i = 0; i < currWordArrayList.size(); i++) {
+      if (currWordArrayList.get(i).getWordExplain().equals(wordSearch)
+          || currWordArrayList.get(i).getWordTarget().equals(wordSearch)) {
+        checkAppear = true;
+        break;
+      }
+    }
+    if (!checkAppear) {
+      System.out.println("Can't find the word you want to search!");
+      return;
+    }
     System.out.format("%-5s%-15s%-25s\n", "No", "English", "Vietnamese");
-    for (int i = 0; i < currWordArray.length; i++) {
-      if (currWordArray[i].getWordExplain().contains(wordSearch)
-          || currWordArray[i].getWordTarget().contains(wordSearch)) {
+    for (int i = 0; i < currWordArrayList.size(); i++) {
+      if (currWordArrayList.get(i).getWordExplain().contains(wordSearch)
+          || currWordArrayList.get(i).getWordTarget().contains(wordSearch)) {
         System.out.format(
             "%-5d%-15s%-25s\n",
             i + 1,
-            dictionary.getWordArray()[i].getWordTarget(),
-            dictionary.getWordArray()[i].getWordExplain());
+            dictionary.getWordArrayList().get(i).getWordTarget(),
+            dictionary.getWordArrayList().get(i).getWordExplain());
       }
     }
   }
 
+  public void addWord() {
+
+  }
+
+  public void deleteWord() {
+
+  }
+
+  public void changeWord() {
+
+  }
+
+  public void controlDictionary() {
+
+  }
   public Dictionary getDictionary() {
     return dictionary;
   }
