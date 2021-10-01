@@ -28,4 +28,10 @@ public class DictionaryCommandLine {
     showAllWords(manager.getDictionary());
     manager.dictionarySeacher();
   }
+
+  public static void dictionaryController(DictionaryManagement manager) {
+    //manager.controlDictionary();
+    manager.dictionaryExportToFile();
+    showAllWords(manager.getDictionary());
+  }
 }

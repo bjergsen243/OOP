@@ -1,0 +1,6 @@
+king	vua
+queen	hoang hau
+hi	chao
+transport	phuong tien
+transform	bien hinh
+transistor	suc no
