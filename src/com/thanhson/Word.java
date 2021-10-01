@@ -4,7 +4,7 @@ public class Word {
   private String wordTarget;
   private String wordExplain;
 
-  Word(String wordTarget, String wordExplain){
+  Word(String wordTarget, String wordExplain) {
     this.wordExplain = wordExplain;
     this.wordTarget = wordTarget;
   }
